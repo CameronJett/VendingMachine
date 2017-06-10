@@ -21,4 +21,10 @@ public class VendingMachineTest {
         vendingMachine.insert("NICKEL");
         assertEquals("$ 0.05", vendingMachine.getDisplay());
     }
+
+    @Test
+    public void whenVendingMachineReceivesDimeItDisplaysTenCents() {
+        vendingMachine.insert("DIME");
+        assertEquals("$ 0.10", vendingMachine.getDisplay());
+    }
 }
