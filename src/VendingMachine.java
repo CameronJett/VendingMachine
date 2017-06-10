@@ -1,15 +1,22 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VendingMachine {
     private String display;
     private String dispensedItem;
     private double currentAmount;
     private List<String> coinReturn;
+    private Map<String, Double> items;
 
     public VendingMachine() {
         display = "INSERT COIN";
         coinReturn = new ArrayList<>();
+        items = new HashMap<>();
+        items.put("COLA", 1.00);
+        items.put("CHIPS", 0.50);
+        items.put("CANDY", 0.65);
     }
 
     public String getDisplay() {
@@ -48,26 +55,17 @@ public class VendingMachine {
     }
 
     public void selectItem(String item) {
-        if (item.equals("COLA") && currentAmount < 1) {
-            display = "PRICE: $1.00";
-        } else if (item.equals("CHIPS") && currentAmount < .5) {
-            display = "PRICE: $0.50";
-        } else if (item.equals("CANDY") && currentAmount < .65) {
-            display = "PRICE: $0.65";
-        }
-
-        if (item.equals("COLA") && currentAmount >= 1) {
-            display = "THANK YOU";
-            dispensedItem = "COLA";
-            currentAmount = 0;
-        } else if (item.equals("CHIPS") && currentAmount >= .5) {
-            display = "THANK YOU";
-            dispensedItem = "CHIPS";
-            currentAmount = 0;
-        } else if (item.equals("CANDY") && currentAmount >= .65) {
-            display = "THANK YOU";
-            dispensedItem = "CANDY";
-            currentAmount = 0;
+        for (Map.Entry<String, Double> e : items.entrySet())
+        {
+            if (e.getKey().equals(item)) {
+                if (currentAmount < e.getValue()) {
+                    display = "PRICE: $" + String.format("%.2f", e.getValue());
+                } else {
+                    display = "THANK YOU";
+                    dispensedItem = e.getKey();
+                    currentAmount = 0;
+                }
+            }
         }
     }
 
