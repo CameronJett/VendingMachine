@@ -62,6 +62,9 @@ public class VendingMachine {
         } else if (item.equals("CHIPS") && currentAmount >= .5) {
             display = "THANK YOU";
             dispensedItem = "CHIPS";
+        } else if (item.equals("CANDY") && currentAmount >= .65) {
+            display = "THANK YOU";
+            dispensedItem = "CANDY";
         }
     }
 
