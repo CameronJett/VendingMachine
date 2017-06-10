@@ -13,14 +13,14 @@ public class VendingMachine {
     private List<String> customerCoins;
     private Map<String, BigDecimal> items;
     private Map<String, Integer> inventory;
-    //magic change that can come out as any coins
     private BigDecimal availableChange;
 
-    public VendingMachine() {
+    public VendingMachine(String startingChange) {
         display = "INSERT COIN";
         coinReturn = new ArrayList<>();
         customerCoins = new ArrayList<>();
         currentAmount = new BigDecimal("0.00");
+        availableChange = new BigDecimal(startingChange);
 
         items = new HashMap<>();
         items.put("COLA", new BigDecimal("1.00"));
@@ -31,8 +31,6 @@ public class VendingMachine {
         inventory.put("COLA", 1);
         inventory.put("CHIPS", 1);
         inventory.put("CANDY", 1);
-
-        availableChange = new BigDecimal(".75");
     }
 
     public String getDisplay() {
@@ -54,18 +52,19 @@ public class VendingMachine {
     }
 
     public void insert(String coin) {
+        String coinValue = "0.00";
         if (coin.equals("NICKEL")) {
-            currentAmount = currentAmount.add(new BigDecimal(".05"));
-            customerCoins.add(coin);
+            coinValue = ".05";
         } else if (coin.equals("DIME")) {
-            currentAmount = currentAmount.add(new BigDecimal(".10"));
-            customerCoins.add(coin);
+            coinValue = ".10";
         } else if (coin.equals("QUARTER")) {
-            currentAmount = currentAmount.add(new BigDecimal(".25"));
-            customerCoins.add(coin);
+            coinValue = ".25";
         } else {
             rejectCoin(coin);
         }
+        currentAmount = currentAmount.add(new BigDecimal(coinValue));
+        customerCoins.add(coin);
+        availableChange = availableChange.add(new BigDecimal(coinValue));
     }
 
     private void rejectCoin(String coin) {

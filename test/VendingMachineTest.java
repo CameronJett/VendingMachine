@@ -11,7 +11,7 @@ public class VendingMachineTest {
 
     @Before
     public void setUp() {
-        vendingMachine = new VendingMachine();
+        vendingMachine = new VendingMachine("5.00");
     }
 
     @Test
@@ -236,12 +236,7 @@ public class VendingMachineTest {
 
     @Test
     public void whenVendingMachineDoesNotHaveEnoughChangeItDisplaysExactChangeOnlyInsteadOfInsertCoin() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("CHIPS");
-        vendingMachine.getDisplay();
+        vendingMachine = new VendingMachine("0.00");
         assertEquals("EXACT CHANGE ONLY", vendingMachine.getDisplay());
     }
 }
