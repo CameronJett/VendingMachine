@@ -3,6 +3,7 @@ import java.util.List;
 
 public class VendingMachine {
     private String display;
+    private String dispensedItem;
     private double currentAmount;
     private List<String> coinReturn;
 
@@ -47,12 +48,20 @@ public class VendingMachine {
     }
 
     public void selectItem(String item) {
-        if (item.equals("COLA")) {
+        if (item.equals("COLA") && currentAmount < 1) {
             display = "PRICE: $1.00";
-        } else if (item.equals("CHIPS")) {
+        } else if (item.equals("CHIPS") && currentAmount < .5) {
             display = "PRICE: $0.50";
-        } else if (item.equals("CANDY")) {
+        } else if (item.equals("CANDY") && currentAmount < .65) {
             display = "PRICE: $0.65";
         }
+
+        if (item.equals("COLA") && currentAmount >= 1) {
+            dispensedItem = "COLA";
+        }
+    }
+
+    public String getDispensedItem() {
+        return dispensedItem;
     }
 }
