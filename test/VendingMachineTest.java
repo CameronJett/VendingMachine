@@ -80,6 +80,13 @@ public class VendingMachineTest {
     }
 
     @Test
+    public void whenVendingMachineDisplaysAPriceItThenDisplaysInsertCoinWhenNoCoinsWereInserted() {
+        vendingMachine.selectItem("COLA");
+        vendingMachine.getDisplay();
+        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+    }
+
+    @Test
     public void whenVendingMachineColaIsSelectedAndThereIsEnoughMoneyInsertedTheProductIsDispensed() {
         vendingMachine.insert("QUARTER");
         vendingMachine.insert("QUARTER");
