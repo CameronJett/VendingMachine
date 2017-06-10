@@ -12,21 +12,28 @@ public class VendingMachine {
     //assuming we want to return actual customer coins instead of coins equal to total coins
     private List<String> customerCoins;
     private Map<String, BigDecimal> items;
+    private Map<String, Integer> inventory;
 
     public VendingMachine() {
         display = "INSERT COIN";
         coinReturn = new ArrayList<>();
         customerCoins = new ArrayList<>();
         currentAmount = new BigDecimal("0.00");
+
         items = new HashMap<>();
         items.put("COLA", new BigDecimal("1.00"));
         items.put("CHIPS", new BigDecimal("0.50"));
         items.put("CANDY", new BigDecimal("0.65"));
+
+        inventory = new HashMap<>();
+        inventory.put("COLA", 1);
+        inventory.put("CHIPS", 1);
+        inventory.put("CANDY", 1);
     }
 
     public String getDisplay() {
         //price is only displayed once then changes
-        if (display.contains("PRICE") || display.contains("THANK")) {
+        if (display.contains("PRICE") || display.contains("THANK") || display.contains(("SOLD"))) {
             String tempDisplay = display;
             display = "";
             return tempDisplay;
@@ -66,13 +73,19 @@ public class VendingMachine {
         for (Map.Entry<String, BigDecimal> e : items.entrySet())
         {
             if (e.getKey().equals(item)) {
-                if (currentAmount.compareTo(e.getValue()) < 0) {
-                    display = "PRICE: $" + e.getValue().toString();
+                Integer itemInventory = inventory.get(item);
+                if (itemInventory > 0) {
+                    if (currentAmount.compareTo(e.getValue()) < 0) {
+                        display = "PRICE: $" + e.getValue().toString();
+                    } else {
+                        display = "THANK YOU";
+                        dispensedItem = e.getKey();
+                        inventory.put(item, itemInventory-1);
+                        currentAmount = currentAmount.subtract(e.getValue());
+                        MakeChange(currentAmount);
+                    }
                 } else {
-                    display = "THANK YOU";
-                    dispensedItem = e.getKey();
-                    currentAmount = currentAmount.subtract(e.getValue());
-                    MakeChange(currentAmount);
+                    display = "SOLD OUT";
                 }
             }
         }
