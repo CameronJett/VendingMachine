@@ -7,11 +7,18 @@ public class VendingMachine {
     private List<String> coinReturn;
 
     public VendingMachine() {
-        this.display = "INSERT COIN";
+        display = "INSERT COIN";
         coinReturn = new ArrayList<>();
     }
 
     public String getDisplay() {
+        //price is only displayed once then changes
+        if (display.contains("PRICE")) {
+            String tempDisplay = display;
+            display = "";
+            return tempDisplay;
+        }
+
         display = "INSERT COIN";
         if (currentAmount > 0) {
             display = "$ " + String.format("%.2f", currentAmount);
@@ -37,5 +44,11 @@ public class VendingMachine {
 
     public List<String> getCoinReturn() {
         return coinReturn;
+    }
+
+    public void selectItem(String item) {
+        if (item.equals("COLA")) {
+            display = "PRICE: $1.00";
+        }
     }
 }

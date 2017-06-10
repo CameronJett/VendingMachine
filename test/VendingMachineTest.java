@@ -60,4 +60,10 @@ public class VendingMachineTest {
         vendingMachine.insert("PENNY");
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
+
+    @Test
+    public void whenVendingMachineColaIsSelectedAndThereIsNotEnoughMoneyInsertedPriceIsDisplayed() {
+        vendingMachine.selectItem("COLA");
+        assertEquals("PRICE: $1.00", vendingMachine.getDisplay());
+    }
 }
