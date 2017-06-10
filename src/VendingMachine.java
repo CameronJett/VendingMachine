@@ -49,6 +49,8 @@ public class VendingMachine {
     public void selectItem(String item) {
         if (item.equals("COLA")) {
             display = "PRICE: $1.00";
+        } else if (item.equals("CHIPS")) {
+            display = "PRICE: $0.50";
         }
     }
 }
