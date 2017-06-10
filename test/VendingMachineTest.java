@@ -182,7 +182,7 @@ public class VendingMachineTest {
         vendingMachine.selectReturnCoins();
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
-    
+
     @Test
     public void whenVendingMachineReturnCoinsButtonIsPressedCoinsAreReturnedAfterBuyingAnItem() {
         vendingMachine.insert("QUARTER");
@@ -232,5 +232,16 @@ public class VendingMachineTest {
         vendingMachine.selectItem("COLA");
         vendingMachine.getDisplay();
         assertEquals("$ 0.25", vendingMachine.getDisplay());
+    }
+
+    @Test
+    public void whenVendingMachineDoesNotHaveEnoughChangeItDisplaysExactChangeOnlyInsteadOfInsertCoin() {
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.selectItem("CHIPS");
+        vendingMachine.getDisplay();
+        assertEquals("EXACT CHANGE ONLY", vendingMachine.getDisplay());
     }
 }

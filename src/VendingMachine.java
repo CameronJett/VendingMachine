@@ -13,6 +13,8 @@ public class VendingMachine {
     private List<String> customerCoins;
     private Map<String, BigDecimal> items;
     private Map<String, Integer> inventory;
+    //magic change that can come out as any coins
+    private BigDecimal availableChange;
 
     public VendingMachine() {
         display = "INSERT COIN";
@@ -29,6 +31,8 @@ public class VendingMachine {
         inventory.put("COLA", 1);
         inventory.put("CHIPS", 1);
         inventory.put("CANDY", 1);
+
+        availableChange = new BigDecimal(".75");
     }
 
     public String getDisplay() {
@@ -40,6 +44,9 @@ public class VendingMachine {
         }
 
         display = "INSERT COIN";
+        if (availableChange.compareTo(new BigDecimal(".50")) < 0) {
+            display = "EXACT CHANGE ONLY";
+        }
         if (currentAmount.compareTo(BigDecimal.ZERO) > 0) {
             display = "$ " + currentAmount.toString();
         }
@@ -85,6 +92,7 @@ public class VendingMachine {
                         inventory.put(item, itemInventory-1);
                         currentAmount = currentAmount.subtract(e.getValue());
                         MakeChange(currentAmount);
+                        currentAmount = new BigDecimal("0.00");
                     }
                 } else {
                     display = "SOLD OUT";
@@ -94,6 +102,8 @@ public class VendingMachine {
     }
 
     private void MakeChange(BigDecimal  changeAmount) {
+        availableChange = availableChange.subtract(changeAmount);
+
         while (changeAmount.compareTo(BigDecimal.ZERO) != 0) {
             if (changeAmount.compareTo(new BigDecimal(".25")) >= 0) {
                 coinReturn.add("QUARTER");
