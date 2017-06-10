@@ -149,12 +149,24 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void whenVendingMachineCandyDisplaysThankYouItThenDisplaysInsertCoin() {
+    public void whenVendingMachineSellsColaAndDisplaysThankYouItThenDisplaysInsertCoin() {
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.selectItem("COLA");
+        vendingMachine.getDisplay();
+        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+    }
+
+    @Test
+    public void whenVendingMachineCandyIsSelectedAndExtraMoneyWasInsertedChangeIsReturned() {
         vendingMachine.insert("QUARTER");
         vendingMachine.insert("QUARTER");
         vendingMachine.insert("QUARTER");
         vendingMachine.selectItem("CANDY");
-        vendingMachine.getDisplay();
-        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+        List<String> expectedCoins = new ArrayList<>();
+        expectedCoins.add("DIME");
+        assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
 }
