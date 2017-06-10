@@ -193,4 +193,16 @@ public class VendingMachineTest {
         vendingMachine.selectItem("COLA");
         assertEquals("SOLD OUT", vendingMachine.getDisplay());
     }
+
+    @Test
+    public void whenVendingMachineDisplaysSoldOutItThenDisplaysInsertCoin() {
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.selectItem("COLA");
+        vendingMachine.selectItem("COLA");
+        vendingMachine.getDisplay();
+        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+    }
 }
