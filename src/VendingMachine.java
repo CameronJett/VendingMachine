@@ -20,6 +20,8 @@ public class VendingMachine {
             currentAmount += .05;
         } else if (coin.equals("DIME")) {
             currentAmount += .10;
+        } else if (coin.equals("QUARTER")) {
+            currentAmount += .25;
         }
     }
 }

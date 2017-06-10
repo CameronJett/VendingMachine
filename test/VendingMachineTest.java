@@ -27,4 +27,10 @@ public class VendingMachineTest {
         vendingMachine.insert("DIME");
         assertEquals("$ 0.10", vendingMachine.getDisplay());
     }
+
+    @Test
+    public void whenVendingMachineReceivesQuarterItDisplaysTwentyFiveCents() {
+        vendingMachine.insert("QUARTER");
+        assertEquals("$ 0.25", vendingMachine.getDisplay());
+    }
 }
