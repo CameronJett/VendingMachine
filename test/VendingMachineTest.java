@@ -39,4 +39,10 @@ public class VendingMachineTest {
         vendingMachine.insert("PENNY");
         assertEquals("PENNY", vendingMachine.getCoinReturn());
     }
+
+    @Test
+    public void whenVendingMachineReceivesPennyItDoesNotChangeDisplay() {
+        vendingMachine.insert("PENNY");
+        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+    }
 }
