@@ -66,7 +66,9 @@ public class VendingMachine {
     }
 
     public List<String> getCoinReturn() {
-        return coinReturn;
+        List<String> coins = new ArrayList<>(coinReturn);
+        coinReturn.clear();
+        return coins;
     }
 
     public void selectItem(String item) {
@@ -104,6 +106,7 @@ public class VendingMachine {
                 changeAmount = changeAmount.subtract(new BigDecimal(".05"));
             }
         }
+        customerCoins.clear();
     }
 
     public String getDispensedItem() {

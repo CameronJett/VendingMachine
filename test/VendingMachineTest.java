@@ -182,6 +182,21 @@ public class VendingMachineTest {
         vendingMachine.selectReturnCoins();
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
+    
+    @Test
+    public void whenVendingMachineReturnCoinsButtonIsPressedCoinsAreReturnedAfterBuyingAnItem() {
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("DIME");
+        vendingMachine.insert("NICKEL");
+        vendingMachine.selectItem("CHIPS");
+        vendingMachine.getCoinReturn();
+        vendingMachine.insert("QUARTER");
+        List<String> expectedCoins = new ArrayList<>();
+        expectedCoins.add("QUARTER");
+        vendingMachine.selectReturnCoins();
+        assertEquals(expectedCoins, vendingMachine.getCoinReturn());
+    }
 
     @Test
     public void whenVendingMachineHasNoColaLeftItDisplaysSoldOut() {
