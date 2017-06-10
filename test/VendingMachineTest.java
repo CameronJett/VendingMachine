@@ -113,4 +113,12 @@ public class VendingMachineTest {
         vendingMachine.selectItem("COLA");
         assertEquals("THANK YOU", vendingMachine.getDisplay());
     }
+
+    @Test
+    public void whenVendingMachineChipsIsSelectedAndThereIsEnoughMoneyInsertedTheProductIsDispensed() {
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.selectItem("CHIPS");
+        assertEquals("CHIPS", vendingMachine.getDispensedItem());
+    }
 }
