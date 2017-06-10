@@ -51,6 +51,8 @@ public class VendingMachine {
             display = "PRICE: $1.00";
         } else if (item.equals("CHIPS")) {
             display = "PRICE: $0.50";
+        } else if (item.equals("CANDY")) {
+            display = "PRICE: $0.65";
         }
     }
 }
