@@ -138,4 +138,13 @@ public class VendingMachineTest {
         vendingMachine.selectItem("CANDY");
         assertEquals("CANDY", vendingMachine.getDispensedItem());
     }
+
+    @Test
+    public void whenVendingMachineCandyIsSelectedAndThereIsEnoughMoneyInsertedThankYouIsDisplayed() {
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.selectItem("CANDY");
+        assertEquals("THANK YOU", vendingMachine.getDisplay());
+    }
 }
