@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
 
 public class VendingMachineTest {
@@ -36,13 +39,25 @@ public class VendingMachineTest {
 
     @Test
     public void whenVendingMachineReceivesPennyItIsReturned() {
+        List<String> expectedCoins = new ArrayList<>();
+        expectedCoins.add("PENNY");
         vendingMachine.insert("PENNY");
-        assertEquals("PENNY", vendingMachine.getCoinReturn());
+        assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
 
     @Test
     public void whenVendingMachineReceivesPennyItDoesNotChangeDisplay() {
         vendingMachine.insert("PENNY");
         assertEquals("INSERT COIN", vendingMachine.getDisplay());
+    }
+
+    @Test
+    public void whenVendingMachineReceivesTwoPenniesTheyAreBothReturned() {
+        List<String> expectedCoins = new ArrayList<>();
+        expectedCoins.add("PENNY");
+        expectedCoins.add("PENNY");
+        vendingMachine.insert("PENNY");
+        vendingMachine.insert("PENNY");
+        assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
 }

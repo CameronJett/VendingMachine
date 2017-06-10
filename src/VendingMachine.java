@@ -1,11 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class VendingMachine {
     private String display;
     private double currentAmount;
-    private String coinReturn;
+    private List<String> coinReturn;
 
     public VendingMachine() {
         this.display = "INSERT COIN";
+        coinReturn = new ArrayList<>();
     }
 
     public String getDisplay() {
@@ -29,10 +32,10 @@ public class VendingMachine {
     }
 
     private void rejectCoin(String coin) {
-        coinReturn = coin;
+        coinReturn.add(coin);
     }
 
-    public String getCoinReturn() {
+    public List<String> getCoinReturn() {
         return coinReturn;
     }
 }
