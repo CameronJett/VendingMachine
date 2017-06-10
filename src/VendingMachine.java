@@ -14,7 +14,7 @@ public class VendingMachine {
 
     public String getDisplay() {
         //price is only displayed once then changes
-        if (display.contains("PRICE")) {
+        if (display.contains("PRICE") || display.contains("THANK")) {
             String tempDisplay = display;
             display = "";
             return tempDisplay;
@@ -57,6 +57,7 @@ public class VendingMachine {
         }
 
         if (item.equals("COLA") && currentAmount >= 1) {
+            display = "THANK YOU";
             dispensedItem = "COLA";
         }
     }
