@@ -9,11 +9,14 @@ public class VendingMachine {
     private String dispensedItem;
     private BigDecimal currentAmount;
     private List<String> coinReturn;
+    //assuming we want to return actual customer coins instead of coins equal to total coins
+    private List<String> customerCoins;
     private Map<String, BigDecimal> items;
 
     public VendingMachine() {
         display = "INSERT COIN";
         coinReturn = new ArrayList<>();
+        customerCoins = new ArrayList<>();
         currentAmount = new BigDecimal("0.00");
         items = new HashMap<>();
         items.put("COLA", new BigDecimal("1.00"));
@@ -39,10 +42,13 @@ public class VendingMachine {
     public void insert(String coin) {
         if (coin.equals("NICKEL")) {
             currentAmount = currentAmount.add(new BigDecimal(".05"));
+            customerCoins.add(coin);
         } else if (coin.equals("DIME")) {
             currentAmount = currentAmount.add(new BigDecimal(".10"));
+            customerCoins.add(coin);
         } else if (coin.equals("QUARTER")) {
             currentAmount = currentAmount.add(new BigDecimal(".25"));
+            customerCoins.add(coin);
         } else {
             rejectCoin(coin);
         }
@@ -89,5 +95,11 @@ public class VendingMachine {
 
     public String getDispensedItem() {
         return dispensedItem;
+    }
+
+    public void selectReturnCoins() {
+        for (String e : customerCoins) {
+            rejectCoin(e);
+        }
     }
 }

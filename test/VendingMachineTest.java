@@ -169,4 +169,17 @@ public class VendingMachineTest {
         expectedCoins.add("DIME");
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
+
+    @Test
+    public void whenVendingMachineReturnCoinsButtonIsPressedCoinsAreReturned() {
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("DIME");
+        vendingMachine.insert("NICKEL");
+        List<String> expectedCoins = new ArrayList<>();
+        expectedCoins.add("QUARTER");
+        expectedCoins.add("DIME");
+        expectedCoins.add("NICKEL");
+        vendingMachine.selectReturnCoins();
+        assertEquals(expectedCoins, vendingMachine.getCoinReturn());
+    }
 }
