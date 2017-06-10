@@ -205,4 +205,17 @@ public class VendingMachineTest {
         vendingMachine.getDisplay();
         assertEquals("INSERT COIN", vendingMachine.getDisplay());
     }
+
+    @Test
+    public void whenVendingMachineDisplaysSoldOutItThenDisplaysCurrentAmount() {
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.selectItem("COLA");
+        vendingMachine.insert("QUARTER");
+        vendingMachine.selectItem("COLA");
+        vendingMachine.getDisplay();
+        assertEquals("$ 0.25", vendingMachine.getDisplay());
+    }
 }
