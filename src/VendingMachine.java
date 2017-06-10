@@ -2,6 +2,7 @@
 public class VendingMachine {
     private String display;
     private double currentAmount;
+    private String coinReturn;
 
     public VendingMachine() {
         this.display = "INSERT COIN";
@@ -22,6 +23,16 @@ public class VendingMachine {
             currentAmount += .10;
         } else if (coin.equals("QUARTER")) {
             currentAmount += .25;
+        } else {
+            rejectCoin(coin);
         }
+    }
+
+    private void rejectCoin(String coin) {
+        coinReturn = coin;
+    }
+
+    public String getCoinReturn() {
+        return coinReturn;
     }
 }
