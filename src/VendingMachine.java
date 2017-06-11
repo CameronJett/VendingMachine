@@ -17,6 +17,10 @@ public class VendingMachine {
     private BigDecimal availableChange;
 
     public VendingMachine(String startingChange) {
+        this(startingChange, new HashMap<String, Integer>());
+    }
+
+    public VendingMachine(String startingChange, Map<String, Integer> startingInventory) {
         display = Consts.INSERT_COIN;
         coinReturn = new ArrayList<>();
         customerCoins = new ArrayList<>();
@@ -28,10 +32,7 @@ public class VendingMachine {
         items.put(Consts.CHIPS, new BigDecimal(Consts.CHIPS_PRICE));
         items.put(Consts.CANDY, new BigDecimal(Consts.CANDY_PRICE));
 
-        inventory = new HashMap<>();
-        inventory.put(Consts.COLA, 1);
-        inventory.put(Consts.CHIPS, 1);
-        inventory.put(Consts.CANDY, 1);
+        inventory = new HashMap<>(startingInventory);
     }
 
     public String getDisplay() {

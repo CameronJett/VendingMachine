@@ -1,8 +1,11 @@
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import static junit.framework.TestCase.assertEquals;
@@ -12,7 +15,11 @@ public class VendingMachineTest {
 
     @Before
     public void setUp() {
-        vendingMachine = new VendingMachine(Consts.STARTING_CHANGE);
+        Map<String, Integer> inventory = new HashMap<>();
+        inventory.put(Consts.COLA, 1);
+        inventory.put(Consts.CHIPS, 1);
+        inventory.put(Consts.CANDY, 1);
+        vendingMachine = new VendingMachine(Consts.STARTING_CHANGE, inventory);
     }
 
     @Test
