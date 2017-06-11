@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static junit.framework.TestCase.assertEquals;
 
 public class VendingMachineTest {
@@ -11,232 +12,232 @@ public class VendingMachineTest {
 
     @Before
     public void setUp() {
-        vendingMachine = new VendingMachine("5.00");
+        vendingMachine = new VendingMachine(Consts.STARTING_CHANGE);
     }
 
     @Test
     public void whenVendingMachineHasNoCoinsItDisplaysInsertCoin() {
-        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+        assertEquals(Consts.INSERT_COIN, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineReceivesNickelItDisplaysFiveCents() {
-        vendingMachine.insert("NICKEL");
-        assertEquals("$ 0.05", vendingMachine.getDisplay());
+        vendingMachine.insert(Consts.NICKEL);
+        assertEquals(Consts.DOLLAR_SIGN + Consts.NICKEL_VALUE, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineReceivesDimeItDisplaysTenCents() {
-        vendingMachine.insert("DIME");
-        assertEquals("$ 0.10", vendingMachine.getDisplay());
+        vendingMachine.insert(Consts.DIME);
+        assertEquals(Consts.DOLLAR_SIGN + Consts.DIME_VALUE, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineReceivesQuarterItDisplaysTwentyFiveCents() {
-        vendingMachine.insert("QUARTER");
-        assertEquals("$ 0.25", vendingMachine.getDisplay());
+        vendingMachine.insert(Consts.QUARTER);
+        assertEquals(Consts.DOLLAR_SIGN + Consts.QUARTER_VALUE, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineReceivesPennyItIsReturned() {
         List<String> expectedCoins = new ArrayList<>();
-        expectedCoins.add("PENNY");
-        vendingMachine.insert("PENNY");
+        expectedCoins.add(Consts.PENNY);
+        vendingMachine.insert(Consts.PENNY);
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
 
     @Test
     public void whenVendingMachineReceivesPennyItDoesNotChangeDisplay() {
-        vendingMachine.insert("PENNY");
-        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+        vendingMachine.insert(Consts.PENNY);
+        assertEquals(Consts.INSERT_COIN, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineReceivesTwoPenniesTheyAreBothReturned() {
         List<String> expectedCoins = new ArrayList<>();
-        expectedCoins.add("PENNY");
-        expectedCoins.add("PENNY");
-        vendingMachine.insert("PENNY");
-        vendingMachine.insert("PENNY");
+        expectedCoins.add(Consts.PENNY);
+        expectedCoins.add(Consts.PENNY);
+        vendingMachine.insert(Consts.PENNY);
+        vendingMachine.insert(Consts.PENNY);
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
 
     @Test
     public void whenVendingMachineColaIsSelectedAndThereIsNotEnoughMoneyInsertedPriceIsDisplayed() {
-        vendingMachine.selectItem("COLA");
-        assertEquals("PRICE: $1.00", vendingMachine.getDisplay());
+        vendingMachine.selectItem(Consts.COLA);
+        assertEquals(Consts.PRICE + Consts.COLA_PRICE, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineChipsAreSelectedAndThereIsNotEnoughMoneyInsertedPriceIsDisplayed() {
-        vendingMachine.selectItem("CHIPS");
-        assertEquals("PRICE: $0.50", vendingMachine.getDisplay());
+        vendingMachine.selectItem(Consts.CHIPS);
+        assertEquals(Consts.PRICE + Consts.CHIPS_PRICE, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineCandyIsSelectedAndThereIsNotEnoughMoneyInsertedPriceIsDisplayed() {
-        vendingMachine.selectItem("CANDY");
-        assertEquals("PRICE: $0.65", vendingMachine.getDisplay());
+        vendingMachine.selectItem(Consts.CANDY);
+        assertEquals(Consts.PRICE + Consts.CANDY_PRICE, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineDisplaysAPriceItThenDisplaysInsertCoinWhenNoCoinsWereInserted() {
-        vendingMachine.selectItem("COLA");
+        vendingMachine.selectItem(Consts.COLA);
         vendingMachine.getDisplay();
-        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+        assertEquals(Consts.INSERT_COIN, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineDisplaysAPriceItThenDisplaysFiveCentsWhenANickelWasInserted() {
-        vendingMachine.insert("NICKEL");
-        vendingMachine.selectItem("COLA");
+        vendingMachine.insert(Consts.NICKEL);
+        vendingMachine.selectItem(Consts.COLA);
         vendingMachine.getDisplay();
-        assertEquals("$ 0.05", vendingMachine.getDisplay());
+        assertEquals(Consts.DOLLAR_SIGN + Consts.NICKEL_VALUE, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineColaIsSelectedAndThereIsEnoughMoneyInsertedTheProductIsDispensed() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("COLA");
-        assertEquals("COLA", vendingMachine.getDispensedItem());
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.COLA);
+        assertEquals(Consts.COLA, vendingMachine.getDispensedItem());
     }
 
     @Test
     public void whenVendingMachineColaIsSelectedAndThereIsEnoughMoneyInsertedThankYouIsDisplayed() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("COLA");
-        assertEquals("THANK YOU", vendingMachine.getDisplay());
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.COLA);
+        assertEquals(Consts.THANK_YOU, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineChipsIsSelectedAndThereIsEnoughMoneyInsertedTheProductIsDispensed() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("CHIPS");
-        assertEquals("CHIPS", vendingMachine.getDispensedItem());
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.CHIPS);
+        assertEquals(Consts.CHIPS, vendingMachine.getDispensedItem());
     }
 
     @Test
     public void whenVendingMachineChipsIsSelectedAndThereIsEnoughMoneyInsertedThankYouIsDisplayed() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("CHIPS");
-        assertEquals("THANK YOU", vendingMachine.getDisplay());
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.CHIPS);
+        assertEquals(Consts.THANK_YOU, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineCandyIsSelectedAndThereIsEnoughMoneyInsertedTheProductIsDispensed() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("CANDY");
-        assertEquals("CANDY", vendingMachine.getDispensedItem());
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.CANDY);
+        assertEquals(Consts.CANDY, vendingMachine.getDispensedItem());
     }
 
     @Test
     public void whenVendingMachineCandyIsSelectedAndThereIsEnoughMoneyInsertedThankYouIsDisplayed() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("CANDY");
-        assertEquals("THANK YOU", vendingMachine.getDisplay());
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.CANDY);
+        assertEquals(Consts.THANK_YOU, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineSellsColaAndDisplaysThankYouItThenDisplaysInsertCoin() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("COLA");
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.COLA);
         vendingMachine.getDisplay();
-        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+        assertEquals(Consts.INSERT_COIN, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineCandyIsSelectedAndExtraMoneyWasInsertedChangeIsReturned() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("CANDY");
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.CANDY);
         List<String> expectedCoins = new ArrayList<>();
-        expectedCoins.add("DIME");
+        expectedCoins.add(Consts.DIME);
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
 
     @Test
     public void whenVendingMachineReturnCoinsButtonIsPressedCoinsAreReturned() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("DIME");
-        vendingMachine.insert("NICKEL");
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.DIME);
+        vendingMachine.insert(Consts.NICKEL);
         List<String> expectedCoins = new ArrayList<>();
-        expectedCoins.add("QUARTER");
-        expectedCoins.add("DIME");
-        expectedCoins.add("NICKEL");
+        expectedCoins.add(Consts.QUARTER);
+        expectedCoins.add(Consts.DIME);
+        expectedCoins.add(Consts.NICKEL);
         vendingMachine.selectReturnCoins();
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
 
     @Test
     public void whenVendingMachineReturnCoinsButtonIsPressedCoinsAreReturnedAfterBuyingAnItem() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("DIME");
-        vendingMachine.insert("NICKEL");
-        vendingMachine.selectItem("CHIPS");
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.DIME);
+        vendingMachine.insert(Consts.NICKEL);
+        vendingMachine.selectItem(Consts.CHIPS);
         vendingMachine.getCoinReturn();
-        vendingMachine.insert("QUARTER");
+        vendingMachine.insert(Consts.QUARTER);
         List<String> expectedCoins = new ArrayList<>();
-        expectedCoins.add("QUARTER");
+        expectedCoins.add(Consts.QUARTER);
         vendingMachine.selectReturnCoins();
         assertEquals(expectedCoins, vendingMachine.getCoinReturn());
     }
 
     @Test
     public void whenVendingMachineHasNoColaLeftItDisplaysSoldOut() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("COLA");
-        vendingMachine.selectItem("COLA");
-        assertEquals("SOLD OUT", vendingMachine.getDisplay());
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.COLA);
+        vendingMachine.selectItem(Consts.COLA);
+        assertEquals(Consts.SOLD_OUT, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineDisplaysSoldOutItThenDisplaysInsertCoin() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("COLA");
-        vendingMachine.selectItem("COLA");
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.COLA);
+        vendingMachine.selectItem(Consts.COLA);
         vendingMachine.getDisplay();
-        assertEquals("INSERT COIN", vendingMachine.getDisplay());
+        assertEquals(Consts.INSERT_COIN, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineDisplaysSoldOutItThenDisplaysCurrentAmount() {
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("COLA");
-        vendingMachine.insert("QUARTER");
-        vendingMachine.selectItem("COLA");
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.COLA);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.COLA);
         vendingMachine.getDisplay();
-        assertEquals("$ 0.25", vendingMachine.getDisplay());
+        assertEquals(Consts.DOLLAR_SIGN + Consts.QUARTER_VALUE, vendingMachine.getDisplay());
     }
 
     @Test
     public void whenVendingMachineDoesNotHaveEnoughChangeItDisplaysExactChangeOnlyInsteadOfInsertCoin() {
-        vendingMachine = new VendingMachine("0.00");
-        assertEquals("EXACT CHANGE ONLY", vendingMachine.getDisplay());
+        vendingMachine = new VendingMachine(Consts.ZERO_DOLLARS);
+        assertEquals(Consts.EXACT_CHANGE, vendingMachine.getDisplay());
     }
 }

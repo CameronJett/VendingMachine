@@ -9,6 +9,7 @@ public class VendingMachine {
     private String dispensedItem;
     private BigDecimal currentAmount;
     private List<String> coinReturn;
+
     //assuming we want to return actual customer coins instead of coins equal to total coins
     private List<String> customerCoins;
     private Map<String, BigDecimal> items;
@@ -16,51 +17,56 @@ public class VendingMachine {
     private BigDecimal availableChange;
 
     public VendingMachine(String startingChange) {
-        display = "INSERT COIN";
+        display = Consts.INSERT_COIN;
         coinReturn = new ArrayList<>();
         customerCoins = new ArrayList<>();
-        currentAmount = new BigDecimal("0.00");
+        currentAmount = new BigDecimal(Consts.ZERO_DOLLARS);
         availableChange = new BigDecimal(startingChange);
 
         items = new HashMap<>();
-        items.put("COLA", new BigDecimal("1.00"));
-        items.put("CHIPS", new BigDecimal("0.50"));
-        items.put("CANDY", new BigDecimal("0.65"));
+        items.put(Consts.COLA, new BigDecimal(Consts.COLA_PRICE));
+        items.put(Consts.CHIPS, new BigDecimal(Consts.CHIPS_PRICE));
+        items.put(Consts.CANDY, new BigDecimal(Consts.CANDY_PRICE));
 
         inventory = new HashMap<>();
-        inventory.put("COLA", 1);
-        inventory.put("CHIPS", 1);
-        inventory.put("CANDY", 1);
+        inventory.put(Consts.COLA, 1);
+        inventory.put(Consts.CHIPS, 1);
+        inventory.put(Consts.CANDY, 1);
     }
 
     public String getDisplay() {
         //price is only displayed once then changes
-        if (display.contains("PRICE") || display.contains("THANK") || display.contains(("SOLD"))) {
+        if (display.contains(Consts.PRICE) || display.contains(Consts.THANK_YOU) || display.contains((Consts.SOLD_OUT))) {
             String tempDisplay = display;
-            display = "";
+            display = Consts.INSERT_COIN;
             return tempDisplay;
         }
 
-        display = "INSERT COIN";
-        if (availableChange.compareTo(new BigDecimal(".50")) < 0) {
-            display = "EXACT CHANGE ONLY";
+        display = Consts.INSERT_COIN;
+        if (availableChange.compareTo(new BigDecimal(Consts.MINIMUM_CHANGE_NEEDED)) < 0) {
+            display = Consts.EXACT_CHANGE;
         }
         if (currentAmount.compareTo(BigDecimal.ZERO) > 0) {
-            display = "$ " + currentAmount.toString();
+            display = Consts.DOLLAR_SIGN + currentAmount.toString();
         }
         return display;
     }
 
     public void insert(String coin) {
-        String coinValue = "0.00";
-        if (coin.equals("NICKEL")) {
-            coinValue = ".05";
-        } else if (coin.equals("DIME")) {
-            coinValue = ".10";
-        } else if (coin.equals("QUARTER")) {
-            coinValue = ".25";
-        } else {
-            rejectCoin(coin);
+        String coinValue = Consts.ZERO_DOLLARS;
+        switch (coin) {
+            case Consts.NICKEL:
+                coinValue = Consts.NICKEL_VALUE;
+                break;
+            case Consts.DIME:
+                coinValue = Consts.DIME_VALUE;
+                break;
+            case Consts.QUARTER:
+                coinValue = Consts.QUARTER_VALUE;
+                break;
+            default:
+                rejectCoin(coin);
+                break;
         }
         currentAmount = currentAmount.add(new BigDecimal(coinValue));
         customerCoins.add(coin);
@@ -84,17 +90,17 @@ public class VendingMachine {
                 Integer itemInventory = inventory.get(item);
                 if (itemInventory > 0) {
                     if (currentAmount.compareTo(e.getValue()) < 0) {
-                        display = "PRICE: $" + e.getValue().toString();
+                        display = Consts.PRICE + e.getValue().toString();
                     } else {
-                        display = "THANK YOU";
+                        display = Consts.THANK_YOU;
                         dispensedItem = e.getKey();
                         inventory.put(item, itemInventory-1);
                         currentAmount = currentAmount.subtract(e.getValue());
                         MakeChange(currentAmount);
-                        currentAmount = new BigDecimal("0.00");
+                        currentAmount = new BigDecimal(Consts.ZERO_DOLLARS);
                     }
                 } else {
-                    display = "SOLD OUT";
+                    display = Consts.SOLD_OUT;
                 }
             }
         }
@@ -104,15 +110,15 @@ public class VendingMachine {
         availableChange = availableChange.subtract(changeAmount);
 
         while (changeAmount.compareTo(BigDecimal.ZERO) != 0) {
-            if (changeAmount.compareTo(new BigDecimal(".25")) >= 0) {
-                coinReturn.add("QUARTER");
-                changeAmount = changeAmount.subtract(new BigDecimal(".25"));
-            } else if (changeAmount.compareTo(new BigDecimal(".10")) >= 0) {
-                coinReturn.add("DIME");
-                changeAmount = changeAmount.subtract(new BigDecimal(".10"));
-            } else if (changeAmount.compareTo(new BigDecimal(".05")) >= 0) {
-                coinReturn.add("NICKEL");
-                changeAmount = changeAmount.subtract(new BigDecimal(".05"));
+            if (changeAmount.compareTo(new BigDecimal(Consts.QUARTER_VALUE)) >= 0) {
+                coinReturn.add(Consts.QUARTER);
+                changeAmount = changeAmount.subtract(new BigDecimal(Consts.QUARTER_VALUE));
+            } else if (changeAmount.compareTo(new BigDecimal(Consts.DIME_VALUE)) >= 0) {
+                coinReturn.add(Consts.DIME);
+                changeAmount = changeAmount.subtract(new BigDecimal(Consts.DIME_VALUE));
+            } else if (changeAmount.compareTo(new BigDecimal(Consts.NICKEL_VALUE)) >= 0) {
+                coinReturn.add(Consts.NICKEL);
+                changeAmount = changeAmount.subtract(new BigDecimal(Consts.NICKEL_VALUE));
             }
         }
         customerCoins.clear();
