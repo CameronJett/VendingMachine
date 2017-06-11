@@ -247,4 +247,18 @@ public class VendingMachineTest {
         vendingMachine = new VendingMachine(Consts.ZERO_DOLLARS);
         assertEquals(Consts.EXACT_CHANGE, vendingMachine.getDisplay());
     }
+
+    @Test
+    public void whenVendingMachineDoesNotHaveEnoughChangeAndReceivesEnoughMoneyToHaveChangeItDisplaysInsertCoin() {
+        Map<String, Integer> inventory = new HashMap<>();
+        inventory.put(Consts.COLA, 1);
+        vendingMachine = new VendingMachine(Consts.ZERO_DOLLARS, inventory);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.COLA);
+        vendingMachine.getDisplay();
+        assertEquals(Consts.INSERT_COIN, vendingMachine.getDisplay());
+    }
 }
