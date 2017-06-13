@@ -261,4 +261,12 @@ public class VendingMachineTest {
         vendingMachine.getDisplay();
         assertEquals(Consts.INSERT_COIN, vendingMachine.getDisplay());
     }
+
+    @Test
+    public void whenCoinReturnIsCheckedItIsEmptied() {
+        vendingMachine.insert(Consts.PENNY);
+        List<String> noCoins = new ArrayList<>();
+        vendingMachine.getCoinReturn();
+        assertEquals(noCoins, vendingMachine.getCoinReturn());
+    }
 }
