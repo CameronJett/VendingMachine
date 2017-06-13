@@ -148,6 +148,15 @@ public class VendingMachineTest {
     }
 
     @Test
+    public void whenGetDispensedItemIsCalledTwiceYouDoNotGetTwoItems() {
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.CHIPS);
+        vendingMachine.getDispensedItem();
+        assertEquals("", vendingMachine.getDispensedItem());
+    }
+
+    @Test
     public void whenVendingMachineCandyIsSelectedAndThereIsEnoughMoneyInsertedThankYouIsDisplayed() {
         vendingMachine.insert(Consts.QUARTER);
         vendingMachine.insert(Consts.QUARTER);

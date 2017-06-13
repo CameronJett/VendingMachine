@@ -126,7 +126,9 @@ public class VendingMachine {
     }
 
     public String getDispensedItem() {
-        return dispensedItem;
+        String itemToReturn = dispensedItem;
+        dispensedItem = "";
+        return itemToReturn;
     }
 
     public void selectReturnCoins() {
