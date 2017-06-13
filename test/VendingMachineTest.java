@@ -269,4 +269,17 @@ public class VendingMachineTest {
         vendingMachine.getCoinReturn();
         assertEquals(noCoins, vendingMachine.getCoinReturn());
     }
+
+    @Test
+    public void coinReturnGivesFiftyCentsWhenADollarWasInsertedAndChipsWereSelected() {
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.insert(Consts.QUARTER);
+        vendingMachine.selectItem(Consts.CHIPS);
+        List<String> coins = new ArrayList<>();
+        coins.add(Consts.QUARTER);
+        coins.add(Consts.QUARTER);
+        assertEquals(coins, vendingMachine.getCoinReturn());
+    }
 }
