@@ -36,17 +36,7 @@ public class VendingMachine {
     }
 
     public String getDisplay() {
-        String tempDisplay = display;
-        display = Consts.INSERT_COIN;
-
-        if (availableChange.compareTo(new BigDecimal(Consts.MINIMUM_CHANGE_NEEDED)) < 0) {
-            tempDisplay = Consts.EXACT_CHANGE;
-        }
-        if (currentAmount.compareTo(BigDecimal.ZERO) > 0) {
-            tempDisplay = Consts.DOLLAR_SIGN + currentAmount.toString();
-        }
-
-        return tempDisplay;
+        return getDisplayValue();
     }
 
     public void insert(String coin) {
@@ -131,5 +121,18 @@ public class VendingMachine {
             }
         }
         customerCoins.clear();
+    }
+
+    public String getDisplayValue() {
+        String tempDisplay = display;
+        display = Consts.INSERT_COIN;
+
+        if (availableChange.compareTo(new BigDecimal(Consts.MINIMUM_CHANGE_NEEDED)) < 0) {
+            tempDisplay = Consts.EXACT_CHANGE;
+        }
+        if (currentAmount.compareTo(BigDecimal.ZERO) > 0) {
+            tempDisplay = Consts.DOLLAR_SIGN + currentAmount.toString();
+        }
+        return tempDisplay;
     }
 }
