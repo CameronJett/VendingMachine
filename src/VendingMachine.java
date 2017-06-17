@@ -74,10 +74,6 @@ public class VendingMachine {
         availableChange = availableChange.add(new BigDecimal(coinValue));
     }
 
-    private void rejectCoin(String coin) {
-        coinReturn.add(coin);
-    }
-
     public List<String> getCoinReturn() {
         List<String> coins = new ArrayList<>(coinReturn);
         coinReturn.clear();
@@ -107,6 +103,22 @@ public class VendingMachine {
         }
     }
 
+    public String getDispensedItem() {
+        String itemToReturn = dispensedItem;
+        dispensedItem = "";
+        return itemToReturn;
+    }
+
+    public void selectReturnCoins() {
+        for (String e : customerCoins) {
+            rejectCoin(e);
+        }
+    }
+
+    private void rejectCoin(String coin) {
+        coinReturn.add(coin);
+    }
+
     private void MakeChange(BigDecimal  changeAmount) {
         availableChange = availableChange.subtract(changeAmount);
 
@@ -123,17 +135,5 @@ public class VendingMachine {
             }
         }
         customerCoins.clear();
-    }
-
-    public String getDispensedItem() {
-        String itemToReturn = dispensedItem;
-        dispensedItem = "";
-        return itemToReturn;
-    }
-
-    public void selectReturnCoins() {
-        for (String e : customerCoins) {
-            rejectCoin(e);
-        }
     }
 }
