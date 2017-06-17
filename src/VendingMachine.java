@@ -36,21 +36,17 @@ public class VendingMachine {
     }
 
     public String getDisplay() {
-        //price is only displayed once then changes
-        if (display.contains(Consts.PRICE) || display.contains(Consts.THANK_YOU) || display.contains((Consts.SOLD_OUT))) {
-            String tempDisplay = display;
-            display = Consts.INSERT_COIN;
-            return tempDisplay;
-        }
-
+        String tempDisplay = display;
         display = Consts.INSERT_COIN;
+
         if (availableChange.compareTo(new BigDecimal(Consts.MINIMUM_CHANGE_NEEDED)) < 0) {
-            display = Consts.EXACT_CHANGE;
+            tempDisplay = Consts.EXACT_CHANGE;
         }
         if (currentAmount.compareTo(BigDecimal.ZERO) > 0) {
-            display = Consts.DOLLAR_SIGN + currentAmount.toString();
+            tempDisplay = Consts.DOLLAR_SIGN + currentAmount.toString();
         }
-        return display;
+
+        return tempDisplay;
     }
 
     public void insert(String coin) {
